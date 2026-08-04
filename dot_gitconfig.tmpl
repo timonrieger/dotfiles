@@ -1,10 +1,10 @@
 [user]
-	name = timonrieger
-	email = mail@timonrieger.de
-	signingkey = /Users/timon/.ssh/github.pub
+	name = {{ .gitUser }}
+	email = {{ .gitEmail }}
+	signingkey = {{ .chezmoi.homeDir }}/.ssh/github.pub
 [core]
 	autocrlf = input
-	excludesfile = /Users/timon/.gitignore_global
+	excludesfile = {{ .chezmoi.homeDir }}/.gitignore_global
 [pull]
 	rebase = true
 [push]
