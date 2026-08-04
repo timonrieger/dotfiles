@@ -1,0 +1,21 @@
+[user]
+	name = timonrieger
+	email = mail@timonrieger.de
+	signingkey = /Users/timon/.ssh/github.pub
+[core]
+	autocrlf = input
+	excludesfile = /Users/timon/.gitignore_global
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+[rerere]
+	enabled = true
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
+[gpg]
+	format = ssh
+[fetch]
+	prune = true

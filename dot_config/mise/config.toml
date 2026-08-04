@@ -1,0 +1,179 @@
+[tools]
+node = "24"
+pnpm = "11"
+python = "3.14"
+ruby = "3.4.10"
+usage = "latest"
+uv = "0.11"
+watchexec = "latest"
+
+[tasks."cleanup:cache:user"]
+run = "rm -rf ~/Library/Caches/* ~/.cache"
+description = "Clean user caches"
+confirm = "Are you sure you want to clean user caches?"
+hide = true
+
+[tasks."cleanup:logs"]
+run = "rm -rf ~/Library/Logs/*"
+description = "Clean logs"
+confirm = "Are you sure you want to clean logs?"
+hide = true
+
+[tasks."cleanup:docker"]
+run = "docker system prune -af --volumes"
+description = "Clean up Docker unused images, unused networks, stopped containers, build cache, and unused volumes"
+confirm = "Are you sure you want to clean up Docker resources?"
+hide = true
+
+[tasks."cleanup:cache:pnpm"]
+run = "pnpm store prune"
+description = "Clean pnpm cache"
+confirm = "Are you sure you want to clean pnpm cache?"
+hide = true
+
+[tasks."cleanup:cache:uv"]
+run = "uv cache prune"
+description = "Clean uv cache"
+confirm = "Are you sure you want to clean uv cache?"
+hide = true
+
+[tasks."cleanup:cache:pip"]
+run = "pip cache purge"
+description = "Clean pip cache"
+confirm = "Are you sure you want to clean pip cache?"
+hide = true
+
+[tasks."cleanup:cache:mise"]
+run = "mise cache prune"
+description = "Clean mise cache"
+confirm = "Are you sure you want to clean mise cache?"
+hide = true
+
+[tasks."cleanup:mise"]
+run = "mise prune"
+description = "Prune unused mise tool installations"
+confirm = "Are you sure you want to prune unused mise tool installations?"
+hide = true
+
+[tasks."cleanup:python"]
+run = "find ~/code -type d \\( -name '.venv' -o -name '__pycache__' -o -name '.mypy_cache' -o -name '.pytest_cache' -o -name '.ruff_cache' -o -name '.tox' -o -name '.nox' -o -name '.hypothesis' -o -name '.pyre' -o -name '.pytype' -o -name '.ipynb_checkpoints' \\) -exec rm -rf {} +"
+description = "Delete Python virtual environments and tooling caches (.venv, __pycache__, .mypy_cache, .pytest_cache, .ruff_cache, .tox, .nox, .hypothesis, .pyre, .pytype, .ipynb_checkpoints) in ~/code"
+confirm = "Are you sure you want to delete Python virtual environments and tooling caches in ~/code?"
+hide = true
+
+[tasks."cleanup:venv:node"]
+run = "find ~/code -type d -name 'node_modules' -exec rm -rf {} +"
+description = "Delete node_modules folders in projects"
+confirm = "Are you sure you want to delete node_modules folders in projects?"
+hide = true
+
+[tasks."cleanup:brew"]
+run = "brew autoremove && brew cleanup"
+description = "Clean up Homebrew packages"
+confirm = "Are you sure you want to clean up Homebrew packages?"
+hide = true
+
+[tasks.cleanup]
+depends = [
+  "cleanup:cache:user",
+  "cleanup:logs",
+  "cleanup:cache:pnpm",
+  "cleanup:cache:uv",
+  "cleanup:docker",
+  "cleanup:cache:pip",
+  "cleanup:cache:mise",
+  "cleanup:python",
+  "cleanup:venv:node",
+  "cleanup:mise",
+  "cleanup:brew",
+]
+description = "Run all cleanup tasks"
+hide = true
+
+[tasks."backup:iclouddrive"]
+run = "rsync --verbose --recursive --delete-before --whole-file --times --exclude='.DS_Store' --exclude='.Trash/' --exclude='Downloads' --exclude='Desktop' --exclude='Documents' '/Users/timon/Library/Mobile Documents/com~apple~CloudDocs/' '/Users/timon/cloud-backups/apple/drive'"
+description = "Backup iCloud Drive"
+confirm = "Are you sure you want to backup iCloud Drive?"
+hide = true
+
+[tasks."backup:cloud"]
+run = "restic backup -r rclone:storj:cloud-backups --exclude '*.zip' --exclude '__MACOSX' --pack-size=60 cloud-backups"
+description = "Backup cloud-backups to remote cloud backup storage using restic"
+confirm = "Are you sure you want to backup cloud-backups to remote cloud backup storage using restic?"
+hide = true
+
+[tasks."backup:cloud:setup"]
+run = """
+mkdir -p cloud-backups && \
+cd cloud-backups && \
+mkdir -p \
+  GoodNotes \
+  apple/contacts apple/drive apple/health apple/music \
+  obsidian \
+  proton/calendar proton/mail proton/pass \
+  readwise \
+  website
+"""
+description = "Setup folder structure for cloud backup cache"
+confirm = "Are you sure you want to create and setup cloud backup cache folders?"
+hide = true
+
+[tasks."backup:cloud:prune"]
+run = "rm -rf ~/cloud-backups"
+description = "Delete the cloud-backups directory"
+confirm = "Are you sure you want to delete the cloud-backups directory?"
+hide = true
+
+[tasks."backup:cloud:prepare"]
+run = '''
+fish -lc '
+echo "Unzipping all zip files in cloud-backups"
+for z in (find ~/cloud-backups -type f -name "*.zip")
+    echo "Unzip $z? [y/N]"
+    read -l confirm
+    if test "$confirm" = "y"
+        set dest (dirname $z)/(basename $z .zip)
+        echo "→ Extracting to $dest"
+        mkdir -p $dest
+        unzip -o "$z" -d "$dest"
+    else
+        echo "→ Skipped $z"
+    end
+end
+echo "Preparation done! You can proceed with the actual backup now"
+'
+'''
+description = "Run preparation before running the actual backup"
+confirm = "Are you sure you want to run the preparation step and possibly alter files before backup?"
+hide = true
+
+[tasks."backup:website-db"]
+run = '''
+read -s -p "Enter Supabase DB password: " PWD
+echo
+pg_dump-18 "postgresql://postgres.mwrdfwcxilftwrphomgz:$PWD@aws-0-eu-central-2.pooler.supabase.com:6543/postgres?sslmode=require" > cloud-backups/website/personal.sql
+'''
+description = "Backup website database to cloud-backups/website/personal.sql with password prompt"
+confirm = "Are you sure you want to backup the website database?"
+hide = true
+
+[tasks."update:brew"]
+run = "brew update && brew upgrade --greedy && sudo chmod -R g+w /opt/homebrew"
+description = "Update, upgrade, and clean up Homebrew packages"
+hide = true
+
+[tasks."update:mise"]
+run = "mise up"
+description = "Update mise tool installations"
+hide = true
+
+[tasks."update:mas"]
+run = "mas upgrade"
+description = "Update Mac App Store applications"
+hide = true
+
+[settings]
+log_level = "error"
+
+[settings.python]
+compile = false
