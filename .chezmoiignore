@@ -1,6 +1,0 @@
-.config/gh/hosts.yml
-             .config/rclone/rclone.conf
-             .config/fish/fish_variables
-             .ssh/known_hosts*
-             .ssh/id_rsa
-             .ssh/github
