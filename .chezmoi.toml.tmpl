@@ -1,6 +1,8 @@
 {{- $gitUser := promptStringOnce . "gitUser" "Git user name" -}}
 {{- $gitEmail := promptStringOnce . "gitEmail" "Git email" -}}
+{{- $wakatimeToken := promptStringOnce . "wakatimeToken" "Wakatime API Key" -}}
 
 [data]
     gitUser = {{ $gitUser | quote }}
     gitEmail = {{ $gitEmail | quote }}
+    wakatimeToken = {{ $wakatimeToken | quote }}
