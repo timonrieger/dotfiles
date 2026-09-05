@@ -1,7 +1,11 @@
 # Improved shell history for zsh, bash, fish and nushell
 brew "atuin"
+# Vector graphics library with cross-device output support
+brew "cairo"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cloudflared"
 # Linux virtual machines
 brew "lima"
 # Container runtimes on MacOS (and Linux) with minimal setup
@@ -20,6 +24,10 @@ brew "ffmpeg"
 brew "fish"
 # GitHub command-line tool
 brew "gh"
+# JPEG image codec that aids compression and decompression
+brew "jpeg-turbo"
+# Implementation of the file(1) command
+brew "libmagic"
 # Mac App Store command-line interface
 brew "mas"
 # Polyglot runtime manager (asdf rust clone)
@@ -48,6 +56,10 @@ cask "claude-code"
 cask "discord"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Free cross-platform office suite, fresh version
+cask "libreoffice"
+# Open-source software for live streaming and screen recording
+cask "obs"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Privacy-first voice-to-text dictation with AI agents
@@ -58,6 +70,8 @@ cask "proton-mail"
 cask "protonvpn"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
+# Remote access and connectivity software focused on security
+cask "teamviewer"
 # Messaging app with a focus on speed and security
 cask "telegram"
 # Open-source code editor
@@ -68,17 +82,11 @@ cask "vlc"
 cask "whatsapp"
 mas "Infuse", id: 1136220934
 mas "Kindle", id: 302584613
-mas "Microsoft Excel", id: 462058435
-mas "Microsoft OneNote", id: 784801555
-mas "Microsoft Outlook", id: 985367838
-mas "Microsoft PowerPoint", id: 462062816
-mas "Microsoft Word", id: 462054704
 mas "Xcode", id: 497799835
 vscode "anthropic.claude-code"
 vscode "dart-code.dart-code"
 vscode "ms-python.debugpy"
 vscode "ms-python.python"
-vscode "ms-python.vscode-pylance"
 vscode "ms-python.vscode-python-envs"
 vscode "soerenuhrbach.vscode-deepl"
 vscode "svelte.svelte-vscode"
