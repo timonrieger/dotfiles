@@ -3,7 +3,7 @@ node = "24"
 pnpm = "11"
 python = "3.14"
 usage = "latest"
-uv = "0.11"
+uv = "0.12"
 watchexec = "latest"
 
 [tasks."cleanup:cache:user"]
