@@ -7,7 +7,7 @@ uv = "0.12"
 watchexec = "latest"
 
 [tasks."cleanup:cache:user"]
-run = "rm -rf ~/Library/Caches/* ~/.cache"
+run = "rm -rf ~/Library/Caches/*"
 description = "Clean user caches"
 confirm = "Are you sure you want to clean user caches?"
 hide = true
