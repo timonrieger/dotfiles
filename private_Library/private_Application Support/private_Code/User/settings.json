@@ -4,5 +4,11 @@
     "deepl.formality": "default",
     "deepl.tagHandling": "off",
     "deepl.splitSentences": "1",
-    "deepl.translationMode": "Replace"
+    "deepl.translationMode": "Replace",
+    "terminal.integrated.profiles.osx": {
+        "fish": {
+            "path": "/opt/homebrew/bin/fish"
+        }
+    },
+    "terminal.integrated.defaultProfile.osx": "fish"
 }
