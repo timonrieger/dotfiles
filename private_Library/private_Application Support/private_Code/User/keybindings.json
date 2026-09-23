@@ -1,0 +1,17 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "shift+alt+t",
+        "command": "workbench.action.terminal.newInActiveWorkspace"
+    },
+    {
+        "key": "alt+y",
+        "command": "deepl.translateTo",
+        "when": "editorHasSelection && !isInDiffEditor"
+    },
+    {
+        "key": "shift+alt+t",
+        "command": "-deepl.translateTo",
+        "when": "editorHasSelection && !isInDiffEditor"
+    }
+]

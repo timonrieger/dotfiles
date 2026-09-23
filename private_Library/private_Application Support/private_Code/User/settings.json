@@ -1,0 +1,8 @@
+{
+    "explorer.confirmDelete": false,
+    "files.autoSave": "afterDelay",
+    "deepl.formality": "default",
+    "deepl.tagHandling": "off",
+    "deepl.splitSentences": "1",
+    "deepl.translationMode": "Replace"
+}

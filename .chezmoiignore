@@ -8,3 +8,11 @@
 .ssh/known_hosts
 .ssh/known_hosts.old
 .ssh/agent
+
+# VS Code: track only the two declarative files (settings.json, keybindings.json).
+# Everything else in that directory is machine state the app rewrites constantly.
+Library/Application Support/Code/User/globalStorage
+Library/Application Support/Code/User/History
+Library/Application Support/Code/User/workspaceStorage
+Library/Application Support/Code/User/sync
+Library/Application Support/Code/User/chatLanguageModels.json
