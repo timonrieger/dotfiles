@@ -1,6 +1,3 @@
-# The GitHub key pair is copied in by hand during onboarding, never committed:
-# this repo is public, and a passphrase is not enough protection for a private
-# key that anyone can download and attack offline.
 .ssh/github
 .ssh/github.pub
 
@@ -9,8 +6,7 @@
 .ssh/known_hosts.old
 .ssh/agent
 
-# VS Code: track only the two declarative files (settings.json, keybindings.json).
-# Everything else in that directory is machine state the app rewrites constantly.
+# machine state VS Code rewrites constantly
 Library/Application Support/Code/User/globalStorage
 Library/Application Support/Code/User/History
 Library/Application Support/Code/User/workspaceStorage
