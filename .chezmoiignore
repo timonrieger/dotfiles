@@ -1,0 +1,10 @@
+# The GitHub key pair is copied in by hand during onboarding, never committed:
+# this repo is public, and a passphrase is not enough protection for a private
+# key that anyone can download and attack offline.
+.ssh/github
+.ssh/github.pub
+
+# Managed by ssh itself.
+.ssh/known_hosts
+.ssh/known_hosts.old
+.ssh/agent

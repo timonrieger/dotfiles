@@ -1,0 +1,36 @@
+#!/bin/sh
+# Finish the SSH setup that chezmoi cannot commit: the key pair itself.
+# Idempotent and silent once the key is in place and loaded.
+
+set -eu
+
+key="{{ .chezmoi.homeDir }}/.ssh/github"
+
+if [ ! -f "$key" ]; then
+    cat <<'EOF'
+
+ssh: ~/.ssh/github is missing.
+     Copy the GitHub key pair (github, github.pub) into ~/.ssh, then re-run
+     `chezmoi apply` to set permissions and unlock it into the agent.
+
+EOF
+    exit 0
+fi
+
+chmod 600 "$key"
+if [ -f "$key.pub" ]; then
+    chmod 644 "$key.pub"
+fi
+
+fingerprint=$(ssh-keygen -lf "$key.pub" 2>/dev/null | awk '{print $2}') || exit 0
+if ssh-add -l 2>/dev/null | grep -qF "$fingerprint"; then
+    exit 0
+fi
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Unlock once; the passphrase then lives in the login keychain and `UseKeychain
+# yes` reloads the key on every later boot without prompting.
+ssh-add --apple-use-keychain "$key"
+{{- else -}}
+ssh-add "$key"
+{{- end }}

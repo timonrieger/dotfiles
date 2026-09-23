@@ -1,0 +1,12 @@
+Host *
+  AddKeysToAgent yes
+  IdentitiesOnly yes
+  UserKnownHostsFile ~/.ssh/known_hosts ~/.ssh/known_hosts_static
+{{- if eq .chezmoi.os "darwin" }}
+  UseKeychain yes
+{{- end }}
+
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github
