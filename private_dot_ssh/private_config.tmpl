@@ -1,7 +1,7 @@
 Host *
   AddKeysToAgent yes
   IdentitiesOnly yes
-  UserKnownHostsFile ~/.ssh/known_hosts ~/.ssh/known_hosts_static
+  UserKnownHostsFile ~/.ssh/known_hosts
 {{- if eq .chezmoi.os "darwin" }}
   UseKeychain yes
 {{- end }}
