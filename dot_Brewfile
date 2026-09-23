@@ -68,6 +68,8 @@ cask "openwhispr"
 cask "proton-mail"
 # VPN client focusing on security
 cask "protonvpn"
+# Save articles to read, highlight key content, and organise notes for review
+cask "reader"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
 # Remote access and connectivity software focused on security
@@ -87,6 +89,7 @@ vscode "anthropic.claude-code"
 vscode "dart-code.dart-code"
 vscode "ms-python.debugpy"
 vscode "ms-python.python"
+vscode "ms-python.vscode-pylance"
 vscode "ms-python.vscode-python-envs"
 vscode "soerenuhrbach.vscode-deepl"
 vscode "svelte.svelte-vscode"
