@@ -10,5 +10,7 @@
             "path": "/opt/homebrew/bin/fish"
         }
     },
-    "terminal.integrated.defaultProfile.osx": "fish"
+    "terminal.integrated.defaultProfile.osx": "fish",
+    "git.confirmSync": false,
+    "workbench.browser.openLocalhostLinks": false
 }
