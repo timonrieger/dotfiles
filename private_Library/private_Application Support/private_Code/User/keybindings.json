@@ -13,5 +13,13 @@
         "key": "shift+alt+t",
         "command": "-deepl.translateTo",
         "when": "editorHasSelection && !isInDiffEditor"
+    },
+    {
+        "key": "cmd+r cmd+w",
+        "command": "workbench.action.closeAllEditors"
+    },
+    {
+        "key": "cmd+k cmd+w",
+        "command": "-workbench.action.closeAllEditors"
     }
 ]
