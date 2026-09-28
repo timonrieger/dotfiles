@@ -42,6 +42,8 @@ brew "poppler"
 brew "proton-pass-cli"
 # Rsync for cloud storage
 brew "rclone"
+# Uplink CLI for the Storj network
+brew "storj-uplink"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Internet file retriever
@@ -56,8 +58,12 @@ cask "claude-code"
 cask "discord"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Web browser
+cask "google-chrome"
 # Free cross-platform office suite, fresh version
 cask "libreoffice"
+# Email client
+cask "microsoft-outlook"
 # Open-source software for live streaming and screen recording
 cask "obs"
 # Knowledge base that works on top of a local folder of plain text Markdown files
@@ -70,6 +76,8 @@ cask "proton-mail"
 cask "protonvpn"
 # Save articles to read, highlight key content, and organise notes for review
 cask "reader"
+# Native GUI tool for relational databases
+cask "tableplus"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
 # Remote access and connectivity software focused on security
