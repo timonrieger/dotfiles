@@ -12,3 +12,7 @@ Library/Application Support/Code/User/History
 Library/Application Support/Code/User/workspaceStorage
 Library/Application Support/Code/User/sync
 Library/Application Support/Code/User/chatLanguageModels.json
+
+# default claude skills
+.claude/skills/synced
+.claude/skills/.trash
