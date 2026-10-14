@@ -1,6 +1,6 @@
 ---
 name: review-renovate-pr
-description: Assess whether a Renovate dependency-bump PR is safe to merge — what actually changed between the pinned and target version, what it breaks in our code, and whether a security claim is real. Use whenever asked to review, assess, or judge the mergeability of a dependency update, a Renovate/Dependabot PR, a `fix(deps)`/`chore(deps)` PR, or a version bump, including "can we merge N" and "is this safe". Report findings in chat and name which outcome the PR belongs to; never merge, migrate, close, or post to GitHub yourself.
+description: Assess whether a Renovate dependency-bump PR is safe to merge — what actually changed between the pinned and target version, what it breaks in our code, and whether a security claim is real. Use whenever asked to review, assess, or judge the mergeability of a dependency update, a Renovate/Dependabot PR, a `fix(deps)`/`chore(deps)` PR, or a version bump, including "can we merge N" and "is this safe". Report findings in chat and name which outcome the PR belongs to; merge or close only when the user says so, and then squash-merge with branch deletion and leave a short closure comment on anything closed.
 ---
 
 # Review a Renovate PR
@@ -17,7 +17,7 @@ Every Renovate PR ends in one of three places. Work the questions in this order 
 
 The rest of this skill is how to answer those three questions honestly.
 
-**You never carry out the outcome.** Do not merge, do not close, do not push migration commits, do not post reviews or comments to GitHub. Name the outcome, give the reasoning, and let the user act.
+**You do not carry out the outcome on your own initiative.** Do not merge, close, push migration commits, or post reviews or comments to GitHub as part of the review. Name the outcome, give the reasoning, and let the user decide. When the user then tells you to merge or close, follow [Acting on the user's decision](#acting-on-the-users-decision).
 
 ### Question 3 — the deferral trade-off
 
@@ -108,3 +108,29 @@ For outcomes 1 and 2 the answer is a recommendation the user carries out: say wh
 For outcome 3 the report exists to let the user decide. Give both axes concretely — the call sites that move and how mechanical the change is, and the package's release cadence and whether another major is already in flight — then your recommendation and what each path costs. Do not collapse it into a single verdict, and do not present two options as equal when they are not.
 
 Include an honest answer to "what does this buy us". If the security rationale did not survive question 2 and the upgrade mostly buys currency, say exactly that rather than repeating the CVE framing. A bump whose main value is avoiding a larger bump later is a legitimate but different argument, and the reviewer deserves to judge it as what it is.
+
+## Acting on the user's decision
+
+Once the user tells you to merge or close (for example "merge 2 and 3, close 5"), that instruction is the authorization. Carry it out with these defaults unless they say otherwise.
+
+**Merging:** `gh pr merge <N> --squash --delete-branch`. Squashing keeps one commit per bump on the base branch. Deleting the branch tidies up after Renovate and does not stop it from opening future updates. If the user names another strategy (`--merge`, `--rebase`, keeping the branch), use theirs.
+
+When several PRs touch the same lockfile, merge them one at a time. After each merge, wait until `gh pr view <next> --json mergeable` stops reporting `UNKNOWN` before merging the next one. If one comes back `CONFLICTING`, do not resolve it yourself. Tell the user Renovate needs to rebase it (the rebase checkbox, or a `rebase!` title prefix).
+
+**Closing:** close the PR and post a short closure comment with the reasoning. Renovate will not reopen that version, so the comment is the only record of why it was skipped, both for the team and for whoever looks at it again in six months. Keep the comment short, at most:
+
+- 3 bullets of one or two sentences each
+- covering why the stated rationale (usually the CVE) does not apply to us, anything that blocks the PR as opened (for example a failed lockfile update), and what we plan to do instead, if anything (for example "upgrade straight to the current major as a planned change")
+- ending with the attribution line, if the session supplies one
+
+Write the comment from the review's conclusions, not by pasting the review. Do not restate the advisory text and do not list every GHSA. Example:
+
+```
+Closing without merging.
+
+- **Advisories don't reach the shipped app.** 14 of the 15 are flaws in the Vite dev server, which only runs locally and is never shipped. The DOM-clobbering one only affects `cjs`/`iife`/`umd` output, and our renderer isn't built in those formats.
+- **The PR can't be merged as is.** The lockfile wasn't updated because vite 6 needs `@types/node` ^18 or newer and we pin ^17.
+- **6 isn't the target.** Vite 7 and 8 are already out. We'll upgrade to the current major as a planned toolchain update rather than going to 6 now.
+```
+
+Afterwards, confirm each PR's final state (merged commit or closed) in one line each, and mention any CI or release runs the merges started on the base branch.
