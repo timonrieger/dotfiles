@@ -1,9 +1,9 @@
 [tools]
 node = "24"
-pnpm = "11"
-python = "3.14"
+pnpm = "12"
+python = "3.15"
 usage = "latest"
-uv = "0.12"
+uv = "0.13"
 watchexec = "latest"
 
 [tasks."cleanup:cache:user"]
