@@ -1,13 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "schedule:monthly"],
+  "extends": ["github>timonrieger/dotfiles//.github/renovate-base"],
   "enabledManagers": ["mise"],
   "mise": {
     "managerFilePatterns": ["/^dot_config/mise/config\\.toml$/"]
-  },
-  "packageRules": [
-    {
-      "matchManagers": ["mise"]
-    }
-  ]
+  }
 }

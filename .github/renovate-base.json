@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Shared Renovate base config, extend with github>timonrieger/dotfiles//.github/renovate-base",
+  "extends": [
+    "config:best-practices",
+    "schedule:monthly",
+    "helpers:pinGitHubActionDigestsToSemver"
+  ],
+  "timezone": "Europe/Berlin",
+  "labels": ["dependencies"],
+  "configMigration": true,
+  "minimumReleaseAge": "3 days",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "extends": ["schedule:monthly"]
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["dependencies", "security"]
+  },
+  "osvVulnerabilityAlerts": true,
+  "pre-commit": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "description": "All GitHub Actions updates in one PR",
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions"
+    },
+    {
+      "description": "pre-commit hooks and mise tools",
+      "matchManagers": ["pre-commit", "mise"],
+      "groupName": "dev tooling"
+    }
+  ]
+}
