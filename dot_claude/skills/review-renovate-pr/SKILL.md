@@ -1,6 +1,6 @@
 ---
 name: review-renovate-pr
-description: Assess whether a Renovate dependency-bump PR is safe to merge — what actually changed between the pinned and target version, what it breaks in our code, and whether a security claim is real. Use whenever asked to review, assess, or judge the mergeability of a dependency update, a Renovate/Dependabot PR, a `fix(deps)`/`chore(deps)` PR, or a version bump, including "can we merge N" and "is this safe". Report findings in chat and name which outcome the PR belongs to; merge or close only when the user says so, and then squash-merge with branch deletion and leave a short closure comment on anything closed.
+description: Assess whether a Renovate dependency-bump PR is safe to merge — what actually changed between the pinned and target version, what it breaks in our code, and whether a security claim is real. Use whenever asked to review, assess, or judge the mergeability of a dependency update, a Renovate/Dependabot PR, a `fix(deps)`/`chore(deps)` PR, or a version bump, including "can we merge N" and "is this safe". Report findings in chat and name which outcome the PR belongs to; merge or close only when the user says so, and then approve and squash-merge with branch deletion, and leave a short closure comment on anything closed.
 ---
 
 # Review a Renovate PR
@@ -99,7 +99,7 @@ For parsers, renderers, codecs and anything handling untrusted user files, readi
 
 ## Reporting
 
-Report in chat. Do not post a review or comment to GitHub unless asked.
+Report in chat. Do not post a review or comment to GitHub unless asked. The approval that goes with a merge is the exception (see below).
 
 **Lead with which of the three outcomes this PR belongs to — merge, migrate, or a deferral decision — and the one reason it lands there.** Then: what breaks and where (`file:line`), what changed but does not affect us, what is pre-existing rather than caused by this PR, and what still needs testing.
 
@@ -113,7 +113,14 @@ Include an honest answer to "what does this buy us". If the security rationale d
 
 Once the user tells you to merge or close (for example "merge 2 and 3, close 5"), that instruction is the authorization. Carry it out with these defaults unless they say otherwise.
 
-**Merging:** `gh pr merge <N> --squash --delete-branch`. Squashing keeps one commit per bump on the base branch. Deleting the branch tidies up after Renovate and does not stop it from opening future updates. If the user names another strategy (`--merge`, `--rebase`, keeping the branch), use theirs.
+**Merging:** approve first, then merge. A plain "merge N" includes the approval, so you don't need to ask about it separately:
+
+```bash
+gh pr review <N> --approve
+gh pr merge <N> --squash --delete-branch
+```
+
+The approval puts on the PR record that the bump was reviewed before it landed. Renovate PRs otherwise merge with no review attached, and branch protection may require one. If the approval fails, stop and report it rather than merging anyway. The usual cause is that the PR was opened from your own account, since GitHub won't let you approve your own PR. Squashing keeps one commit per bump on the base branch. Deleting the branch tidies up after Renovate and does not stop it from opening future updates. If the user names another strategy (`--merge`, `--rebase`, keeping the branch), use theirs.
 
 When several PRs touch the same lockfile, merge them one at a time. After each merge, wait until `gh pr view <next> --json mergeable` stops reporting `UNKNOWN` before merging the next one. If one comes back `CONFLICTING`, do not resolve it yourself. Tell the user Renovate needs to rebase it (the rebase checkbox, or a `rebase!` title prefix).
 
