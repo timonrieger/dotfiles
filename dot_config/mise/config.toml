@@ -148,11 +148,11 @@ hide = true
 
 [tasks."backup:website-db"]
 run = '''
-read -s -p "Enter Supabase DB password: " PWD
+read -s -p "Enter DB URI: " DB_URI
 echo
-pg_dump-18 "postgresql://postgres.mwrdfwcxilftwrphomgz:$PWD@aws-0-eu-central-2.pooler.supabase.com:6543/postgres?sslmode=require" > cloud-backups/website/personal.sql
+pg_dump-18 --no-owner --no-acl "$DB_URI" > cloud-backups/website/personal.sql
 '''
-description = "Backup website database to cloud-backups/website/personal.sql with password prompt"
+description = "Backup website database to cloud-backups/website/personal.sql with connection URI prompt"
 confirm = "Are you sure you want to backup the website database?"
 hide = true
 
