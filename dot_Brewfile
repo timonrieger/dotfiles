@@ -40,8 +40,6 @@ brew "pandoc"
 brew "poppler"
 # Object-relational database system
 brew "postgresql@18", link: true
-# Command-line interface for Proton Pass
-brew "proton-pass-cli"
 # Rsync for cloud storage
 brew "rclone"
 # Fast, efficient and secure backup program
@@ -66,8 +64,18 @@ cask "ghostty"
 cask "google-chrome"
 # Free cross-platform office suite, fresh version
 cask "libreoffice"
+# Spreadsheet software
+cask "microsoft-excel"
+# Digital note taking app
+cask "microsoft-onenote"
 # Email client
 cask "microsoft-outlook"
+# Presentation software
+cask "microsoft-powerpoint"
+# Meet, chat, call, and collaborate in just one place
+cask "microsoft-teams"
+# Word processor
+cask "microsoft-word"
 # Open-source software for live streaming and screen recording
 cask "obs"
 # Knowledge base that works on top of a local folder of plain text Markdown files
