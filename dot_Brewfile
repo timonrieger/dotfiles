@@ -38,6 +38,8 @@ brew "neovim"
 brew "pandoc"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Object-relational database system
+brew "postgresql@18", link: true
 # Command-line interface for Proton Pass
 brew "proton-pass-cli"
 # Rsync for cloud storage
